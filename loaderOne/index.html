@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loader with Content Transition</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .loader {
+      border: 8px solid #f3f3f3; /* Light grey */
+      border-radius: 50%;
+      border-top: 8px solid #007bff; /* Bootstrap primary color */
+      width: 100px;
+      height: 100px;
+      animation: spin 1.5s linear infinite;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loader-wrapper {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #e9ecef, #f8f9fa); /* Subtle gradient */
+      transition: opacity 0.5s ease;
+    }
+
+    .content {
+      display: none; /* Initially hidden */
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .content.show {
+      display: block; /* Show content */
+      opacity: 1; /* Fade in */
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div class="loader-wrapper">
+    <div class="text-center">
+      <div class="loader"></div>
+      <div class="loader-text">Loading, please wait...</div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content text-center py-5">
+    <h1>Welcome to My Website</h1>
+    <p>This is the content that appears after the loader.</p>
+  </div>
+
+  <script>
+    // Simulate content loading
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        // Hide loader
+        document.querySelector('.loader-wrapper').style.opacity = '0';
+        setTimeout(() => {
+          document.querySelector('.loader-wrapper').style.display = 'none';
+
+          // Show content
+          const content = document.querySelector('.content');
+          content.classList.add('show');
+        }, 500); // Allow fade-out time
+      }, 2000); // Simulated loading time
+    });
+  </script>
+</body>
+</html>
